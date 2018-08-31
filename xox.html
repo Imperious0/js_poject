@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge"> -->
+    <title>XOX Game</title>
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+    <link rel="stylesheet" type="text/css" media="screen" href="cssAnimation/linkAnimation.css" />
+    <style media="screen">
+
+      /* background: #F5F5F5; */
+
+*{
+  padding: 0px;
+  margin:0px;
+    }
+
+.game{
+  width: 180px;
+  height: 180px;
+  margin: 0 auto;
+
+}
+.koordinat{
+  color:white;
+  margin-right: -5px;
+  min-width: 60px;
+  min-height: 40px;
+  padding-top: 25px;
+  border-style: solid;
+  border-color: #8470FF;
+  border-width: 0.7px;
+  font-size: 20px;
+  display:inline-block;
+  transition-duration: 0.3s;
+}
+.koordinat:hover{
+  background:#8470FF;
+  transition-duration: 0.3s;
+}
+.s_span{
+  height: 60px;
+  width: 180px;
+}
+.score_about{
+ width:150px;
+ height: 30px;
+ margin: 0 auto;
+ background: red;
+ font-size: 15px;
+ color:black;
+ padding-top:10px;
+ padding-left: 30px;
+}
+
+    </style>
+
+</head>
+<body>
+    <div class="score_about">
+
+       <span id='score_durum'></span>
+
+    </div>
+   <table class="game">
+     <td class="s_span">
+     <th id='xox0' class="koordinat" onclick="xoxClick(0)" onmouseover="textwrite(3,'xox0')" onmouseout="textwrite(5,'xox0')"></th>
+     <th id='xox1' class="koordinat" onclick="xoxClick(1)" onmouseover="textwrite(3,'xox1')" onmouseout="textwrite(5,'xox1')"></th>
+     <th id='xox2' class="koordinat" onclick="xoxClick(2)" onmouseover="textwrite(3,'xox2')" onmouseout="textwrite(5,'xox2')"></th>
+   </td>
+   <td class="s_span">
+     <th id='xox3' class="koordinat" onclick="xoxClick(3)" onmouseover="textwrite(3,'xox3')" onmouseout="textwrite(5,'xox3')"></th>
+     <th id='xox4' class="koordinat" onclick="xoxClick(4)" onmouseover="textwrite(3,'xox4')" onmouseout="textwrite(5,'xox4')"></th>
+     <th id='xox5' class="koordinat" onclick="xoxClick(5)" onmouseover="textwrite(3,'xox5')" onmouseout="textwrite(5,'xox5')"></th>
+   </td>
+   <td class="s_span">
+     <th id='xox6' class="koordinat" onclick="xoxClick(6)" onmouseover="textwrite(3,'xox6')" onmouseout="textwrite(5,'xox6')"></th>
+     <th id='xox7' class="koordinat" onclick="xoxClick(7)" onmouseover="textwrite(3,'xox7')" onmouseout="textwrite(5,'xox7')"></th>
+     <th id='xox8' class="koordinat" onclick="xoxClick(8)" onmouseover="textwrite(3,'xox8')" onmouseout="textwrite(5,'xox8')"></th>
+   </td>
+ </table>
+
+
+
+
+
+
+<script type="text/javascript">
+
+      let xox0= document.getElementById('xox0');
+      let xox1= document.getElementById('xox1');
+      let xox2= document.getElementById('xox2');
+      let xox3= document.getElementById('xox3');
+      let xox4= document.getElementById('xox4');
+      let xox5= document.getElementById('xox5');
+      let xox6= document.getElementById('xox6');
+      let xox7= document.getElementById('xox7');
+      let xox8= document.getElementById('xox8');
+      let scores=document.getElementById('score_durum');
+  let arrayuser= [{content:'',id:xox0,click:false},{content:'',id:xox1,click:false},
+  {content:'',id:xox2,click:false},{content:'',id:xox3,click:false},
+  {content:'',id:xox4,click:false},{content:'',id:xox5,click:false},
+  {content:'',id:xox6,click:false},{content:'',id:xox7,click:false},
+  {content:'',id:xox8,click:false}];
+
+let firsttext=true;
+ let userscore=0,machinscore=0;
+
+ let iffor=false;
+ scores.innerHTML='Oyna Bakalım!!';
+    let letvariable=10;//0~9 dizi elemanları
+
+    let alertcolor='#FF3030';
+
+
+      function textwrite(textt,id){
+        //ilk etapta arsagele x~o üretiyor
+        //ekranaan mouse üzerine gelirse gösteriyor ve siliyor
+
+          if(firsttext==true){
+           if(textt==3)
+            {
+              if((Math.floor(Math.random()*10)%2)==0)
+              document.getElementById(id).innerHTML='X' ;
+              else
+              document.getElementById(id).innerHTML='O' ;
+            }
+          else if(textt==5)
+          if((Math.floor(Math.random()*10)%2)==0)
+          document.getElementById(id).innerHTML='X' ;
+          else
+          document.getElementById(id).innerHTML='O' ;
+         }
+      }
+
+
+   function transactionControl(){
+     firsttext=false;
+      do{
+        //xox olup olmadığı kontrol ediliyor
+      if(arrayuser[0].content=='X'&& arrayuser[1].content=='X' && arrayuser[2].content=='X')
+        {
+          arrayuser[0].id.style.backgroundColor=alertcolor;
+          arrayuser[0].id.style.color='white';
+          arrayuser[1].id.style.backgroundColor=alertcolor;
+          arrayuser[1].id.style.color='white';
+          arrayuser[2].id.style.backgroundColor=alertcolor;
+          arrayuser[2].id.style.color='white';
+           userscore++;
+        break;
+      }
+      else if(arrayuser[3].content=='X'&& arrayuser[4].content=='X' && arrayuser[5].content=='X')
+      {
+        arrayuser[3].id.style.backgroundColor=alertcolor;
+        arrayuser[3].id.style.color='white';
+        arrayuser[4].id.style.backgroundColor=alertcolor;
+        arrayuser[4].id.style.color='white';
+        arrayuser[5].id.style.backgroundColor=alertcolor;
+        arrayuser[5].id.style.color='white';
+         userscore++;
+      break;
+    }
+      else if(arrayuser[6].content=='X'&& arrayuser[7].content=='X' && arrayuser[8].content=='X')
+      {
+        arrayuser[6].id.style.backgroundColor=alertcolor;
+        arrayuser[6].id.style.color='white';
+        arrayuser[7].id.style.backgroundColor=alertcolor;
+        arrayuser[7].id.style.color='white';
+        arrayuser[8].id.style.backgroundColor=alertcolor;
+        arrayuser[8].id.style.color='white';
+        userscore++;
+      break;
+    }
+      if(arrayuser[0].content=='X'&& arrayuser[3].content=='X' && arrayuser[6].content=='X')
+      {
+        arrayuser[0].id.style.backgroundColor=alertcolor;
+        arrayuser[0].id.style.color='white';
+        arrayuser[3].id.style.backgroundColor=alertcolor;
+        arrayuser[3].id.style.color='white';
+        arrayuser[6].id.style.backgroundColor=alertcolor;
+        arrayuser[6].id.style.color='white';
+        userscore++;
+      break;
+    }
+     else if(arrayuser[1].content=='X'&& arrayuser[4].content=='X' && arrayuser[7].content=='X')
+     {
+       arrayuser[1].id.style.backgroundColor=alertcolor;
+       arrayuser[1].id.style.color='white';
+       arrayuser[4].id.style.backgroundColor=alertcolor;
+       arrayuser[4].id.style.color='white';
+       arrayuser[7].id.style.backgroundColor=alertcolor;
+       arrayuser[7].id.style.color='white';
+         userscore++;
+     break;
+   }
+     else if(arrayuser[2].content=='X'&& arrayuser[5].content=='X' && arrayuser[8].content=='X')
+     {
+       arrayuser[2].id.style.backgroundColor=alertcolor;
+       arrayuser[2].id.style.color='white';
+       arrayuser[5].id.style.backgroundColor=alertcolor;
+       arrayuser[5].id.style.color='white';
+       arrayuser[8].id.style.backgroundColor=alertcolor;
+       arrayuser[8].id.style.color='white';
+        userscore++;
+     break;
+   }
+     else if(arrayuser[0].content=='X'&& arrayuser[4].content=='X' && arrayuser[8].content=='X')
+     {
+       arrayuser[0].id.style.backgroundColor=alertcolor;
+       arrayuser[0].id.style.color='white';
+       arrayuser[4].id.style.backgroundColor=alertcolor;
+       arrayuser[4].id.style.color='white';
+       arrayuser[8].id.style.backgroundColor=alertcolor;
+       arrayuser[8].id.style.color='white';
+        userscore++;
+     break;
+   }
+    else if(arrayuser[2].content=='X' && arrayuser[4].content=='X' && arrayuser[6].content=='X')
+    {
+      arrayuser[2].id.style.backgroundColor=alertcolor;
+      arrayuser[2].id.style.color='white';
+      arrayuser[4].id.style.backgroundColor=alertcolor;
+      arrayuser[4].id.style.color='white';
+      arrayuser[6].id.style.backgroundColor=alertcolor;
+      arrayuser[6].id.style.color='white';
+      userscore++;
+    break;
+  }
+
+    //makşna işlemleri kontrol ediliyor
+      if(arrayuser[0].content=='O'&& arrayuser[1].content=='O' && arrayuser[2].content=='O')
+        {
+          arrayuser[0].id.style.backgroundColor=alertcolor;
+          arrayuser[0].id.style.color='white';
+          arrayuser[1].id.style.backgroundColor=alertcolor;
+          arrayuser[1].id.style.color='white';
+          arrayuser[2].id.style.backgroundColor=alertcolor;
+          arrayuser[2].id.style.color='white';
+           machinscore++;
+           break;
+        }
+      else if(arrayuser[3].content=='O'&& arrayuser[4].content=='O' && arrayuser[5].content=='O')
+      {
+        arrayuser[3].id.style.backgroundColor=alertcolor;
+        arrayuser[3].id.style.color='white';
+        arrayuser[4].id.style.backgroundColor=alertcolor;
+        arrayuser[4].id.style.color='white';
+        arrayuser[5].id.style.backgroundColor=alertcolor;
+        arrayuser[5].id.style.color='white';
+         machinscore++;
+         break;
+      }
+      else if(arrayuser[6].content=='O'&& arrayuser[7].content=='O' && arrayuser[8].content=='O')
+      {
+        arrayuser[6].id.style.backgroundColor=alertcolor;
+        arrayuser[6].id.style.color='white';
+        arrayuser[7].id.style.backgroundColor=alertcolor;
+        arrayuser[7].id.style.color='white';
+        arrayuser[8].id.style.backgroundColor=alertcolor;
+        arrayuser[8].id.style.color='white';
+         machinscore++;
+         break;
+      }
+      if(arrayuser[0].content=='O'&& arrayuser[3].content=='O' && arrayuser[6].content=='O')
+      {
+        arrayuser[0].id.style.backgroundColor=alertcolor;
+        arrayuser[0].id.style.color='white';
+        arrayuser[3].id.style.backgroundColor=alertcolor;
+        arrayuser[3].id.style.color='white';
+        arrayuser[6].id.style.backgroundColor=alertcolor;
+        arrayuser[6].id.style.color='white';
+        machinscore++;
+         break;
+      }
+     else if(arrayuser[1].content=='O'&& arrayuser[4].content=='O' && arrayuser[7].content=='O')
+     {
+       arrayuser[1].id.style.backgroundColor=alertcolor;
+       arrayuser[1].id.style.color='white';
+       arrayuser[4].id.style.backgroundColor=alertcolor;
+       arrayuser[4].id.style.color='white';
+       arrayuser[7].id.style.backgroundColor=alertcolor;
+       arrayuser[7].id.style.color='white';
+      machinscore++;
+        break;
+     }
+     else if(arrayuser[2].content=='O'&& arrayuser[5].content=='O' && arrayuser[8].content=='O')
+     {
+       arrayuser[2].id.style.backgroundColor=alertcolor;
+       arrayuser[2].id.style.color='white';
+       arrayuser[5].id.style.backgroundColor=alertcolor;
+       arrayuser[5].id.style.color='white';
+       arrayuser[8].id.style.backgroundColor=alertcolor;
+       arrayuser[8].id.style.color='white';
+        machinscore++;
+        break;
+     }
+     else if(arrayuser[0].content=='O'&& arrayuser[4].content=='O' && arrayuser[8].content=='O')
+     {
+       arrayuser[0].id.style.backgroundColor=alertcolor;
+       arrayuser[0].id.style.color='white';
+       arrayuser[4].id.style.backgroundColor=alertcolor;
+       arrayuser[4].id.style.color='white';
+       arrayuser[8].id.style.backgroundColor=alertcolor;
+       arrayuser[8].id.style.color='white';
+        machinscore++;
+        break;
+     }
+     else if(arrayuser[2].content=='X' && arrayuser[4].content=='X' && arrayuser[6].content=='X')
+     {
+       arrayuser[2].id.style.backgroundColor=alertcolor;
+       arrayuser[2].id.style.color='white';
+       arrayuser[4].id.style.backgroundColor=alertcolor;
+       arrayuser[4].id.style.color='white';
+       arrayuser[6].id.style.backgroundColor=alertcolor;
+       arrayuser[6].id.style.color='white';
+         machinscore++;
+        break;
+     }
+      }while(false)
+    }
+
+
+
+  function clickcontrol(vClick,vClickxo){
+    //tıklanılan yer boş işe verilen x~o ekle oraya
+      if(arrayuser[vClick].click==false){
+         arrayuser[vClick].content=vClickxo;
+         arrayuser[vClick].click=true;
+          iffor=true;
+      }
+      else
+       iffor=false;
+   }
+
+   function machinelearning(machinrandom){
+     machineselect='O';
+     userselect='X';
+     //dikey kontrol etme
+do {
+
+if(arrayuser[0].content==userselect && arrayuser[6].content==userselect &&arrayuser[3].click==false){
+      arrayuser[3].content=machineselect;
+      arrayuser[3].click=true;
+      break;
+    }
+else if(arrayuser[1].content==userselect && arrayuser[7].content==userselect &&arrayuser[4].click==false){
+      arrayuser[4].content=machineselect;
+      arrayuser[4].click=true;
+      break;
+    }
+
+
+
+else if(arrayuser[0].content==userselect && arrayuser[1].content==userselect &&arrayuser[2].click==false){
+    arrayuser[2].content=machineselect;
+    arrayuser[2].click=true;
+    break;
+  }
+  else if(arrayuser[2].content==userselect && arrayuser[1].content==userselect &&arrayuser[0].click==false){
+    arrayuser[0].content=machineselect;
+    arrayuser[0].click=true;
+    break;
+  }
+  else if(arrayuser[3].content==userselect && arrayuser[4].content==userselect &&arrayuser[5].click==false){
+    arrayuser[5].content=machineselect;
+    arrayuser[5].click=true;
+    break;
+  }
+  else if(arrayuser[4].content==userselect && arrayuser[5].content==userselect &&arrayuser[3].click==false){
+    arrayuser[3].content=machineselect;
+    arrayuser[3].click=true;
+    break;
+  }
+  else if(arrayuser[6].content==userselect && arrayuser[7].content==userselect &&arrayuser[8].click==false){
+    arrayuser[8].content=machineselect;
+    arrayuser[8].click=true;
+    break;
+  }
+  else if(arrayuser[8].content==userselect && arrayuser[7].content==userselect &&arrayuser[6].click==false){
+    arrayuser[6].content=machineselect;
+    arrayuser[6].click=true;
+    break;
+  }
+//dikey kontrol etme
+
+
+//yatay kontrol etme
+if(arrayuser[0].content==userselect && arrayuser[3].content==userselect &&arrayuser[6].click==false){
+  arrayuser[6].content=machineselect;
+  arrayuser[6].click=true;
+  break;
+}
+else if(arrayuser[3].content==userselect && arrayuser[6].content==userselect &&arrayuser[0].click==false){
+  arrayuser[0].content=machineselect;
+  arrayuser[0].click=true;
+  break;
+}
+else if(arrayuser[1].content==userselect && arrayuser[4].content==userselect &&arrayuser[7].click==false){
+  arrayuser[7].content=machineselect;
+  arrayuser[7].click=true;
+  break;
+}
+else if(arrayuser[4].content==userselect && arrayuser[7].content==userselect &&arrayuser[1].click==false){
+  arrayuser[1].content=machineselect;
+  arrayuser[1].click=true;
+  break;
+}
+else if(arrayuser[2].content==userselect && arrayuser[5].content==userselect &&arrayuser[8].click==false){
+  arrayuser[8].content=machineselect;
+  arrayuser[8].click=true;
+   break;
+}
+else if(arrayuser[5].content==userselect && arrayuser[8].content==userselect &&arrayuser[2].click==false){
+  arrayuser[2].content=machineselect;
+  arrayuser[2].click=true;
+  break;
+}
+else if(arrayuser[0].content==userselect && arrayuser[4].content==userselect &&arrayuser[8].click==false){
+  arrayuser[8].content=machineselect;
+  arrayuser[8].click=true;
+  break;
+ }
+else if(arrayuser[4].content==userselect && arrayuser[8].content==userselect &&arrayuser[0].click==false){
+  arrayuser[0].content=machineselect;
+  arrayuser[0].click=true;
+  break;
+}
+//yatay kontrol etme
+else if(true) {
+  //hiçbir şart sağlanmazise
+    clickcontrol(machinrandom,machineselect);
+    break;
+}
+else {
+  for(let a=0;a<9;a++){
+  if(  arrayuser[a].click==true && arrayuser[a+1].click==false){
+    arrayuser[a+1].content='O';
+    break;
+  }else {
+  break;
+}
+}
+}
+
+
+}while(false);
+
+ }
+
+//her tıklama da bu fonksiyon çağrılıyor
+   function xoxClick(variable){
+
+      clickcontrol(variable,'X');
+
+      if(iffor==true){
+        for(let forv=0;forv<20;forv++){
+         //makina rasgele sayı üretiyor
+         machineoperation=Math.floor(Math.random()*10);
+          if(machineoperation==10 || machineoperation==variable || machineoperation==9 ){
+            //sayı üç olasığın birine eşit ise tekradan sayı üret
+             continue;
+          }
+          else{
+            //üretilen sayı bunlardan birine eşit değil ise işleme devam et
+            if(arrayuser[machineoperation].click==false)
+              break;
+              //döngüyü kır devam etme
+          }
+         }
+        machinelearning(machineoperation);
+      }
+
+
+
+  let sonuc=true;
+
+     for(let screenv=0;screenv<9;screenv++){
+        arrayuser[screenv].id.innerHTML=arrayuser[screenv].content;
+          if(arrayuser[screenv].click==true){
+             arrayuser[screenv].id.style.backgroundColor='#EEE9E9';
+             arrayuser[screenv].id.style.color='#FF3030';
+          }
+          //tüm kutular dolumu kontrol edeiliyor
+          if(arrayuser[screenv].click==false)
+             sonuc=false;
+      }
+
+  //aynı yere ikikere tıklayınca skorları artırmaması için
+   if(letvariable!=variable || macdurum==false)
+       transactionControl();
+
+//tıklanılan konum bir değişkene atılıyor eğer aynı yere tekrar tıklanırsa değişknler eşit olacağı
+//için işlem yapılmayacaktır
+    letvariable=variable;
+
+    scores.innerHTML='Sen:' + userscore + ' Bilgisayar:' + machinscore;
+
+    if(sonuc==true)
+  {
+       //tüm kutular dolu ise ekrana yazdır
+     macdurum=true;
+    if(userscore>machinscore)
+    scores.innerHTML='Kazandınız ';
+    else if(userscore<machinscore)
+    scores.innerHTML='Kaybettiniz! ';
+    else
+    scores.innerHTML='Berabere';
+  }
+
+
+     }
+</script>
+</body>
+</html>
