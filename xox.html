@@ -86,8 +86,18 @@
 
 
 <script type="text/javascript">
-
-      let xox0= document.getElementById('xox0');
+      let var arrayuser = new Array(3);
+    for(let a = 0; a < arrayuser.length; a++)
+    {
+        arrayuser[a] = new Array(3);
+        for(let b = 0; b < arrayuser[a].length; b++)
+        {
+            let xoxptr =  document.getElementById('xox'+((a*arrayuser[a].length)+b));
+            arrayuser[a][b] = {content:'',id:(xox+((a*b)+b)),click:false};
+        }
+    }
+        
+  /*    let xox0= document.getElementById('xox0');
       let xox1= document.getElementById('xox1');
       let xox2= document.getElementById('xox2');
       let xox3= document.getElementById('xox3');
@@ -102,7 +112,7 @@
   {content:'',id:xox4,click:false},{content:'',id:xox5,click:false},
   {content:'',id:xox6,click:false},{content:'',id:xox7,click:false},
   {content:'',id:xox8,click:false}];
-
+*/
 let firsttext=true;
  let userscore=0,machinscore=0;
 
@@ -136,7 +146,58 @@ let firsttext=true;
 
    function transactionControl(){
      firsttext=false;
-      do{
+       let controler_xx = 0;
+       let controler_xo = 0;
+       let controler_yx = 0;
+       let controler_yo = 0;
+         for(let a=0;a<arrayuser.length;a++){
+             controler_xx = 0;
+             controler_xo = 0;
+             for(let b=0; arrayuser[a].length; b++)
+             {
+                 if(arrayuser[(a*arrayuser[a].length])][b] == 'X')
+                     controler_xx++;
+                 if(arrayuser[(a*arrayuser[a].length)][b] == 'O')
+                     controler_xo++;
+                 if(arrayuser[(b*arrayuser[b].length)][a] == 'X')
+                     controler_yx++;
+                 if(arrayuser[(b*arrayuser[b].length)][a] == 'O')
+                     controler_yo++;
+             }
+             if(controler_xx > 2)
+             {
+                 for(let b=0; arrayuser[a].length; b++)
+                 {
+                      arrayuser[a][b].id.style.backgroundColor=alertcolor;
+                      arrayuser[a][b].id.style.color='white';
+                 }
+             }
+             if(controler_xo > 2)
+             {
+                 for(let b=0; arrayuser[a].length; b++)
+                 {
+                      arrayuser[a][b].id.style.backgroundColor=alertcolor;
+                      arrayuser[a][b].id.style.color='white';
+                 }
+             }
+             if(controler_xx > 2)
+             {
+                 for(let b=0; arrayuser[a].length; b++)
+                 {
+                      arrayuser[b][a].id.style.backgroundColor=alertcolor;
+                      arrayuser[b][a].id.style.color='white';
+                 }
+             }
+             if(controler_xo > 2)
+             {
+                 for(let b=0; arrayuser[a].length; b++)
+                 {
+                      arrayuser[b][a].id.style.backgroundColor=alertcolor;
+                      arrayuser[b][a].id.style.color='white';
+                 }
+             }
+        }
+      /*do{
         //xox olup olmadığı kontrol ediliyor
       if(arrayuser[0].content=='X'&& arrayuser[1].content=='X' && arrayuser[2].content=='X')
         {
@@ -317,15 +378,15 @@ let firsttext=true;
         break;
      }
       }while(false)
-    }
+    }*/
 
 
 
-  function clickcontrol(vClick,vClickxo){
+  function clickcontrol(vClick_y, vClick_x, vClickxo){
     //tıklanılan yer boş işe verilen x~o ekle oraya
-      if(arrayuser[vClick].click==false){
-         arrayuser[vClick].content=vClickxo;
-         arrayuser[vClick].click=true;
+      if(arrayuser[vClick_y][vClick_x].click==false){
+         arrayuser[vClick_y][vClick_x].content=vClickxo;
+         arrayuser[vClick_y][vClick_x].click=true;
           iffor=true;
       }
       else
@@ -336,7 +397,46 @@ let firsttext=true;
      machineselect='O';
      userselect='X';
      //dikey kontrol etme
-do {
+     let controler_x = 0;
+     let controler_y = 0;
+     let controler_nonx = 0;
+     let controler_nony = 0;
+       
+       
+     for(let a = 0; a < arrayuser.length; a++)
+     {
+         controler_x = 0;
+         for(let b = 0; b < arrayuser.length; b++)
+         {
+             if(arrayuser[a][b].content == userselect)
+                 controler_x++;
+             else
+                 controler_nonx = b;
+             if(arrayuser[b][a].content == userselect)
+                 controler_y++;
+             else
+                 controler_nony = a;
+             if(controler_x > 1)
+             {
+                 arrayuser[a][controler_nonx].content=machineselect;
+                 arrayuser[a][controler_nonx].click=true;
+             }else if(controler_y > 1)
+             {
+                 arrayuser[a][controler_nony].content=machineselect;
+                 arrayuser[a][controler_nony].click=true;
+             }
+             else
+             {
+                 clickcontrol(machinrandom,machineselect);
+             }
+                 
+         }
+         
+     }
+       
+       
+       
+/*do {
 
 if(arrayuser[0].content==userselect && arrayuser[6].content==userselect &&arrayuser[3].click==false){
       arrayuser[3].content=machineselect;
@@ -443,16 +543,54 @@ else {
 }
 
 
-}while(false);
+}while(false);*/
 
  }
 
 //her tıklama da bu fonksiyon çağrılıyor
    function xoxClick(variable){
+    let x = 0;
+    let y = 0;
+       let ptr_var = variable;
+       if(variable > 3)
+       {
 
-      clickcontrol(variable,'X');
-
-      if(iffor==true){
+           while(variable > 3)
+           {
+                variable = variable - 3;
+                y++;
+           }
+           x = variable;
+       }else
+           x = variable;
+       
+       
+      clickcontrol(y, x, 'X');
+       variable = ptr_var;
+       
+      let var check = new Array(9);
+       for(let a = 0; a < check.length; a++)
+           check[a] = false;
+       for(let a = 0; a < arrayuser.length; a++)
+       {
+           
+           for(let b = 0, b < arrayuser[a].length; b++)
+           {
+               if(arrayuser[a][b].click == true)
+                   check[(a*arrayuser[a].length)+b] = true;
+           }
+       }
+       do
+       {
+           machineoperation = Math.floor(Math.random()*10);
+           if(machineoperation > 8)
+               machineoperation %= 9;
+           
+       }while(check[machineoperation] == true || machineoperation == variable);
+       
+       machinelearning(machineoperation);
+       
+   /*   if(iffor==true){
         for(let forv=0;forv<20;forv++){
          //makina rasgele sayı üretiyor
          machineoperation=Math.floor(Math.random()*10);
@@ -468,21 +606,26 @@ else {
           }
          }
         machinelearning(machineoperation);
-      }
+      }*/
 
 
 
   let sonuc=true;
 
-     for(let screenv=0;screenv<9;screenv++){
-        arrayuser[screenv].id.innerHTML=arrayuser[screenv].content;
-          if(arrayuser[screenv].click==true){
-             arrayuser[screenv].id.style.backgroundColor='#EEE9E9';
-             arrayuser[screenv].id.style.color='#FF3030';
-          }
-          //tüm kutular dolumu kontrol edeiliyor
-          if(arrayuser[screenv].click==false)
-             sonuc=false;
+     for(let screenv=0;screenv<arrayuser.length;screenv++){
+         for(let screenh=0; screenh<arrayuser[screenv].length; screenh++)
+         {
+             arrayuser[screenv][screenh].id.innerHTML=arrayuser[screenv][screenh].content;
+             if(arrayuser[screenv].click==true){
+             arrayuser[screenv][screenh].id.style.backgroundColor='#EEE9E9';
+             arrayuser[screenv][screenh].id.style.color='#FF3030';
+              }
+              //tüm kutular dolumu kontrol edeiliyor
+              if(arrayuser[screenv][screenh].click==false)
+                 sonuc=false;
+         }
+        
+          
       }
 
   //aynı yere ikikere tıklayınca skorları artırmaması için
